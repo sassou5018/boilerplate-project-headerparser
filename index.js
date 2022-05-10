@@ -21,8 +21,19 @@ app.get("/", function (req, res) {
 
 
 // your first API endpoint... 
-app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
+app.get("/api/whoami", function (req, res) {
+    let browserinf= req.header("user-agent");
+    let ipadd= req.headers["x-forwarded-for"]||req.socket.remoteAddress||req.ip;
+    let lang= req.headers['accept-language'];
+    console.log(browserinf);
+    console.log(ipadd);
+    console.log(lang);
+    let reply= {
+      "ipaddress" : ipadd,
+      "language" : lang,
+      "software" : browserinf
+    }
+  res.json(reply);
 });
 
 
